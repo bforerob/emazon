@@ -1,16 +1,24 @@
-<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="category-form">
+<!-- src/app/molecules/category-form/category-form.component.html -->
+<form *ngIf="categoryForm" [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="category-form">
     <app-label-input
-      label="Nombre"
-      [formControl]="nombre"
-      placeholder="Ingrese el nombre de la categoría"
+      label="name"
+      [formControl]="name"
+      placeholder="Ingrese el name de la categoría"
     ></app-label-input>
   
     <app-label-input
       label="Descripción"
-      [formControl]="descripcion"
+      [formControl]="description"
       placeholder="Ingrese una descripción"
     ></app-label-input>
   
     <app-button text="Agregar Categoría" type="submit"></app-button>
+  
+    <div *ngIf="submissionError" class="error-message">
+      {{ submissionError }}
+    </div>
+    <div *ngIf="submissionSuccess" class="success-message">
+      {{ submissionSuccess }}
+    </div>
   </form>
   
