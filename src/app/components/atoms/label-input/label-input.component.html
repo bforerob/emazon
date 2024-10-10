@@ -1,18 +1,22 @@
+<!-- src/app/atoms/label-input/label-input.component.html -->
+
 <div class="label-input">
-    <label [for]="label">{{ label }}</label>
-    <input
-      [id]="label"
-      [type]="type"
-      [formControl]="formControl"
-      [placeholder]="placeholder"
-    />
-    <div *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)" class="error-messages">
-      <div *ngIf="formControl.errors?.['required']">
-        {{ label }} es requerido.
-      </div>
-      <div *ngIf="formControl.errors?.['maxlength']">
-        {{ label }} no puede exceder {{ maxlength }} caracteres.
-      </div>
+  <label [for]="label">{{ label }}</label>
+  <input
+    [id]="label"
+    [type]="type"
+    [placeholder]="placeholder"
+    [value]="value"
+    (input)="handleInputChange($event)"
+    (blur)="handleBlur()"
+    [attr.maxlength]="maxlength"
+  />
+  <div *ngIf="formControl?.invalid && (formControl.dirty || formControl.touched)" class="error-messages">
+    <div *ngIf="formControl.errors?.['required']">
+      {{ label }} es requerido.
+    </div>
+    <div *ngIf="formControl.errors?.['maxlength']">
+      {{ label }} no puede exceder {{ maxlength }} caracteres.
     </div>
   </div>
-  
+</div>
