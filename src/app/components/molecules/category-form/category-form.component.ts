@@ -12,6 +12,8 @@ export class CategoryFormComponent implements OnInit {
   categoryForm!: FormGroup;
   submissionError: string = '';
   submissionSuccess: string = '';
+  isLoading: boolean = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -38,11 +40,13 @@ export class CategoryFormComponent implements OnInit {
       const newCategory: Category = this.categoryForm.value;
       this.categoryService.createCategory(newCategory).subscribe({
         next: (response) => {
+          this.isLoading = false;
           this.submissionSuccess = 'Categoría creada exitosamente.';
           this.submissionError = '';
           this.categoryForm.reset();
         },
         error: (error) => {
+          this.isLoading = false;
           this.submissionError = error;
           this.submissionSuccess = '';
         }

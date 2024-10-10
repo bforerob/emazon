@@ -13,6 +13,10 @@
     ></app-label-input>
   
     <app-button text="Agregar Categoría" type="submit"></app-button>
+
+    <div *ngIf="isLoading" class="loading-message">
+        Procesando...
+      </div>
   
     <div *ngIf="submissionError" class="error-message">
       {{ submissionError }}
