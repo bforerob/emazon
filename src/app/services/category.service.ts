@@ -25,11 +25,13 @@ export class CategoryService {
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
+    
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error: ${error.error.message}`;
+    } else if (error.error && error.error.message) {
+      errorMessage = error.error.message;
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    return throwError(errorMessage);
+    }return throwError(errorMessage);
   }
 }
