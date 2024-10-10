@@ -11,7 +11,7 @@
         {{ label }} es requerido.
       </div>
       <div *ngIf="formControl.errors?.['maxlength']">
-        {{ label }} no puede exceder caracteres.
+        {{ label }} no puede exceder {{ maxlength }} caracteres.
       </div>
     </div>
   </div>

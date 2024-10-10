@@ -11,4 +11,5 @@ export class LabelInputComponent {
   @Input() type: string = 'text';
   @Input() formControl!: FormControl;
   @Input() placeholder: string = '';
+  @Input() maxlength!: number;
 }
