@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ButtonComponent } from './components/atoms/button/button.component';
 import { LabelInputComponent } from './components/atoms/label-input/label-input.component';
 import { CategoryFormComponent } from './components/molecules/category-form/category-form.component';
+import { AddCategoryComponent } from './components/pages/add-category/add-category.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CategoryFormComponent } from './components/molecules/category-form/cate
     ButtonComponent,
     LabelInputComponent,
     CategoryFormComponent,
+    AddCategoryComponent,
   ],
   imports: [
     BrowserModule,
