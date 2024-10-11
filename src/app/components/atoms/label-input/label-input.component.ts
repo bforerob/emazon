@@ -1,5 +1,3 @@
-// src/app/atoms/label-input/label-input.component.ts
-
 import { Component, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 
@@ -22,31 +20,35 @@ export class LabelInputComponent implements ControlValueAccessor {
   @Input() maxlength!: number;
 
   // ControlValueAccessor callbacks
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  onChange: (value: string) => void = () => {};
+  onTouched: () => void = () => {};
 
   // Internal value
-  value: any;
-formControl: any;
+  value: string = '';
+  formControl!: FormControl;
 
   // Función para escribir un valor en el componente
-  writeValue(value: any): void {
+  writeValue(value: string): void {
     this.value = value;
   }
 
   // Registrar una función para cuando el valor cambia
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
   // Registrar una función para cuando el control es tocado
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
   // Si el componente es deshabilitado
   setDisabledState?(isDisabled: boolean): void {
-    // Implementa esta función si deseas manejar el estado deshabilitado
+    if (isDisabled) {
+      this.formControl.disable();
+    } else {
+      this.formControl.enable();
+    }
   }
 
   // Manejar el cambio en el input
