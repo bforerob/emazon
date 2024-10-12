@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CategoryService {
-  private apiUrl = environment.addCategoryUrl;
+  private apiUrl = "http://localhost:9090/category/";
 
   constructor(private http: HttpClient) { }
 
