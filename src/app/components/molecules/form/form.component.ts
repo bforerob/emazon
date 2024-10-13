@@ -10,6 +10,7 @@ import { FormField } from 'src/app/shared/interfaces/formField.model';
 })
 export class FormComponent implements OnInit {
   @Input() fields: FormField[] = [];
+  @Input() message?: { type: 'success' | 'error'; text: string };
   @Output() submitForm = new EventEmitter<any>();
 
   form!: FormGroup;

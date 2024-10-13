@@ -61,3 +61,4 @@ export class LabelInputComponent implements ControlValueAccessor {
     this.onTouched();
   }
 }
+

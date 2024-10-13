@@ -16,5 +16,6 @@
   </div>
 
   <app-button type="submit" [disabled]="form.invalid">Enviar</app-button>
-  
+  <app-message *ngIf="message" [type]="message.type" [text]="message.text"></app-message>
+
 </form>
