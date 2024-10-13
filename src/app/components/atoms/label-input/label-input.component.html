@@ -1,22 +1,14 @@
-<!-- src/app/atoms/label-input/label-input.component.html -->
+<!-- src/app/components/label-input/label-input.component.html -->
 
-<div class="label-input">
+<div class="form-group">
   <label [for]="label">{{ label }}</label>
   <input
-    [id]="label"
+    #inputRef
     [type]="type"
     [placeholder]="placeholder"
+    [disabled]="disabled"
     [value]="value"
-    (input)="handleInputChange($event)"
-    (blur)="handleBlur()"
-    [attr.maxlength]="maxlength"
+    (input)="onInput(inputRef.value)"
+    (blur)="onBlur()"
   />
-  <div *ngIf="formControl?.invalid && (formControl.dirty || formControl.touched)" class="error-messages">
-    <div *ngIf="formControl.errors?.['required']">
-      {{ label }} es requerido.
-    </div>
-    <div *ngIf="formControl.errors?.['maxlength']">
-      {{ label }} no puede exceder {{ maxlength }} caracteres.
-    </div>
-  </div>
 </div>

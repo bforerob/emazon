@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { ButtonComponent } from './components/atoms/button/button.component';
 import { LabelInputComponent } from './components/atoms/label-input/label-input.component';
 import { FormComponent } from './components/molecules/form/form.component';
+import { AddCategoryComponent } from './modules/category/pages/add-category/add-category.component';
+import { MessageComponent } from './components/atoms/message/message.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { FormComponent } from './components/molecules/form/form.component';
     ButtonComponent,
     LabelInputComponent,
     FormComponent,
+    AddCategoryComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

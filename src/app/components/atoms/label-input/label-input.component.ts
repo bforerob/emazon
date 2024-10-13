@@ -1,3 +1,4 @@
+
 import { Component, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 
@@ -23,9 +24,8 @@ export class LabelInputComponent implements ControlValueAccessor {
   onChange: (value: string) => void = () => {};
   onTouched: () => void = () => {};
 
-  // Internal value
   value: string = '';
-  formControl!: FormControl;
+  disabled: boolean = false;
 
   // Función para escribir un valor en el componente
   writeValue(value: string): void {
@@ -41,25 +41,23 @@ export class LabelInputComponent implements ControlValueAccessor {
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
-
-  // Si el componente es deshabilitado
+  
   setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formControl.disable();
-    } else {
-      this.formControl.enable();
-    }
+    this.disabled = isDisabled;
   }
 
-  // Manejar el cambio en el input
   handleInputChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.value = input.value;
     this.onChange(this.value);
   }
 
-  // Manejar el evento de blur
-  handleBlur(): void {
+  onInput(value: any): void {
+    this.value = value;
+    this.onChange(this.value);
+  }
+
+  onBlur(): void {
     this.onTouched();
   }
 }
