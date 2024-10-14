@@ -49,9 +49,9 @@ export class FormComponent implements OnInit {
 
   defaultErrorMessage(errorKey: string, label: string): string {
     const messages: { [key: string]: string } = {
-      required: `${label} es requerido.`,
-      maxlength: `${label} excede el número máximo de caracteres.`,
+      required: `${label} is required.`,
+      maxlength: `${label} exced max length.`,
     };
-    return messages[errorKey] || `${label} es inválido.`;
+    return messages[errorKey] || `${label} is invalid.`;
   }
 }
