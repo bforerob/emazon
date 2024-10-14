@@ -1,0 +1,12 @@
+<div class="form-group">
+  <label [for]="label">{{ label }}</label>
+  <input
+    #inputRef
+    [type]="type"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [value]="value"
+    (input)="onInput(inputRef.value)"
+    (blur)="onBlur()"
+  />
+</div>

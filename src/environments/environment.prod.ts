@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  addCategoryUrl : 'http://localhost:9090/category/',
+
 };
