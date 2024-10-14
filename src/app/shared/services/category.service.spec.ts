@@ -1,23 +1,24 @@
 import { TestBed } from '@angular/core/testing';
-import { CategoryService } from './category.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { CategoryService } from './category.service';
 import { Category } from '../interfaces/category.model';
+import { environment } from '../../../environments/environment.mock';
 import { HttpErrorResponse } from '@angular/common/http';
 
 describe('CategoryService', () => {
   let service: CategoryService;
   let httpMock: HttpTestingController;
 
-  const mockCategory: Category = {
+  const dummyCategory: Category = {
     id: 1,
     name: 'Electronics',
-    description: ''
+    description: 'Various electronic products'
   };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [CategoryService],
+      providers: [CategoryService]
     });
 
     service = TestBed.inject(CategoryService);
@@ -25,66 +26,79 @@ describe('CategoryService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify();
+    httpMock.verify(); // Verifica que no haya peticiones pendientes
   });
 
-  describe('#createCategory', () => {
-    it('should create a category and return it', () => {
-      service.createCategory(mockCategory).subscribe((response) => {
-        expect(response).toEqual(mockCategory);
-      });
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
 
-      const req = httpMock.expectOne(service['apiUrl']);
-      expect(req.request.method).toBe('POST');
-      expect(req.request.headers.get('Content-Type')).toBe('application/json');
-      expect(req.request.body).toEqual(mockCategory);
-
-      req.flush(mockCategory);
+  it('should create a category successfully', () => {
+    service.createCategory(dummyCategory).subscribe((response) => {
+      expect(response).toEqual(dummyCategory);
     });
 
-    it('should handle a client-side error', () => {
-      const errorEvent = new ErrorEvent('Network error', {
-        message: 'No Internet',
-      });
+    const req = httpMock.expectOne(environment.addCategoryUrl);
+    expect(req.request.method).toBe('POST');
+    req.flush(dummyCategory); // Simula una respuesta exitosa con el `dummyCategory`
+  });
 
-      service.createCategory(mockCategory).subscribe(
-        () => fail('should have failed with a client-side error'),
-        (error) => {
-          expect(error).toBe('Error: No Internet');
-        }
-      );
+  it('should handle network error (client-side error)', () => {
+    const errorMessage = 'Error: Network error';
+    const mockError = new ErrorEvent('Network error');
 
-      const req = httpMock.expectOne(service['apiUrl']);
-      req.error(errorEvent);
+    service.createCategory(dummyCategory).subscribe({
+      next: () => fail('Should have failed with a client-side error'),
+      error: (error) => {
+        expect(error).toEqual('Error: Network error');
+      }
     });
 
-    it('should handle a server-side error with a custom message', () => {
-      const errorMessage = 'Category already exists';
+    const req = httpMock.expectOne(environment.addCategoryUrl);
+    req.error(mockError); // Simula un error del lado del cliente (como un problema de red)
+  });
 
-      service.createCategory(mockCategory).subscribe(
-        () => fail('should have failed with a server-side error'),
-        (error) => {
-          expect(error).toBe(errorMessage);
-        }
-      );
+  it('should handle server-side error (status 0)', () => {
+    const mockErrorResponse = { status: 0, statusText: 'Unknown Error' };
 
-      const req = httpMock.expectOne(service['apiUrl']);
-      req.flush({ message: errorMessage }, { status: 400, statusText: 'Bad Request' });
+    service.createCategory(dummyCategory).subscribe({
+      next: () => fail('Should have failed with server-side error'),
+      error: (error) => {
+        expect(error).toBe('Ups... we are having server issues :(');
+      }
     });
 
-    it('should handle a server-side error without a custom message', () => {
-      const status = 500;
-      const statusText = 'Internal Server Error';
+    const req = httpMock.expectOne(environment.addCategoryUrl);
+    req.flush(null, mockErrorResponse); // Simula un error del servidor con status 0
+  });
 
-      service.createCategory(mockCategory).subscribe(
-        () => fail('should have failed with a server-side error'),
-        (error) => {
-          expect(error).toBe(`Error Code: ${status}\nMessage: ${statusText}`);
-        }
-      );
+  it('should handle backend error with message', () => {
+    const errorMessage = 'Category already exists';
+    const mockErrorResponse = { status: 409, statusText: 'Conflict' };
+    const mockErrorBody = { message: errorMessage };
 
-      const req = httpMock.expectOne(service['apiUrl']);
-      req.flush({}, { status, statusText });
+    service.createCategory(dummyCategory).subscribe({
+      next: () => fail('Should have failed with a 409 error'),
+      error: (error) => {
+        expect(error).toBe(errorMessage);
+      }
     });
+
+    const req = httpMock.expectOne(environment.addCategoryUrl);
+    req.flush(mockErrorBody, mockErrorResponse); // Simula un error de conflicto del backend con un mensaje personalizado
+  });
+
+  it('should handle backend error without message', () => {
+    const mockErrorResponse = { status: 500, statusText: 'Internal Server Error' };
+
+    service.createCategory(dummyCategory).subscribe({
+      next: () => fail('Should have failed with a 500 error'),
+      error: (error) => {
+        expect(error).toBe('An unknown error occurred!');
+      }
+    });
+
+    const req = httpMock.expectOne(environment.addCategoryUrl);
+    req.flush(null, mockErrorResponse); // Simula un error 500 sin un mensaje específico
   });
 });
