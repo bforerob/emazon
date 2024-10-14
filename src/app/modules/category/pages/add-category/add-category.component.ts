@@ -1,8 +1,5 @@
-// src/app/pages/add-category/add-category.component.ts
-
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { Category } from 'src/app/shared/interfaces/category.model';
 import { FormField } from 'src/app/shared/interfaces/formField.model';
 import { CategoryService } from 'src/app/shared/services/category.service';
 
@@ -12,27 +9,30 @@ import { CategoryService } from 'src/app/shared/services/category.service';
   styleUrls: ['./add-category.component.scss']
 })
 export class AddCategoryComponent {
+  nameLength : number = 50;
+  descriptionLength : number = 90;
+
   fields: FormField[] = [
     {
       type: 'text',
       name: 'name',
-      label: 'Category name',
-      placeholder: 'name',
-      validators: [Validators.required, Validators.maxLength(50)],
+      label: 'Name',
+      placeholder: 'Category name',
+      validators: [Validators.required, Validators.maxLength(this.nameLength)],
       errorMessages: {
-        required: 'name is requeried.',
-        maxlength: 'name lenght cant exced 50 characters'
+        required: 'Name is requeried.',
+        maxlength: 'Name lenght can not exced ' + this.nameLength + ' characters.'
       }
     },
     {
       type: 'text',
       name: 'description',
       label: 'Description',
-      placeholder: 'Ingresa la descripción',
-      validators: [Validators.required, Validators.maxLength(90)],
+      placeholder: 'Category description',
+      validators: [Validators.required, Validators.maxLength(this.descriptionLength)],
       errorMessages: {
-        required: 'La descripción es obligatoria.',
-        maxlength: 'La descripción no puede exceder los 90 caracteres.'
+        required: 'Description is requeried.',
+        maxlength: 'Description lenght can not exced ' + this.descriptionLength + ' characters.'
       }
     }
   ];
@@ -43,12 +43,10 @@ export class AddCategoryComponent {
   onSubmit(value: any): void {
     this.categoryService.createCategory(value).subscribe({
       next: (res) => {
-        // Manejar respuesta exitosa
-        this.message = { type: 'success', text: 'Categoría creada exitosamente.' };
+        this.message = { type: 'success', text: 'Category created succesfully.' };
       },
       error: (err) => {
-        // Manejar errores de forma segura
-        this.message = { type: 'error', text: err || 'Error al crear asasaasla categoría.' };
+        this.message = { type: 'error', text: err || 'An error has ocurred.' };
       }
     });
   }

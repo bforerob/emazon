@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CategoryService {
-  private apiUrl = "http://localhost:9090/category/";
+  private apiUrl = environment.addCategoryUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -29,10 +29,15 @@ export class CategoryService {
     
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error: ${error.error.message}`;
-    } else if (error.error && error.error.message) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }return throwError(errorMessage);
+    } else{
+      if (error.status === 0) {
+        errorMessage = 'Ups... we are having server issues :(';
+      }
+      else if (error.error && error.error.message) {
+        errorMessage = error.error.message;
+      }
+    } 
+    return throwError(errorMessage);
+    
   }
 }

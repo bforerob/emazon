@@ -51,7 +51,6 @@ export class FormComponent implements OnInit {
     const messages: { [key: string]: string } = {
       required: `${label} es requerido.`,
       maxlength: `${label} excede el número máximo de caracteres.`,
-      // Agrega más mensajes según tus validadores
     };
     return messages[errorKey] || `${label} es inválido.`;
   }

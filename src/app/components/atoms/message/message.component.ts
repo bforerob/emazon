@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class MessageComponent {
   @Input() type: 'success' | 'error' = 'error';
-  @Input() text: string = 'An error has ocurred o yo que se';
+  @Input() text: string = 'An error has ocurred';
 }

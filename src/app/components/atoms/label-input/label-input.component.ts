@@ -20,24 +20,20 @@ export class LabelInputComponent implements ControlValueAccessor {
   @Input() placeholder: string = '';
   @Input() maxlength!: number;
 
-  // ControlValueAccessor callbacks
   onChange: (value: string) => void = () => {};
   onTouched: () => void = () => {};
 
   value: string = '';
   disabled: boolean = false;
 
-  // Función para escribir un valor en el componente
   writeValue(value: string): void {
     this.value = value;
   }
 
-  // Registrar una función para cuando el valor cambia
   registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  // Registrar una función para cuando el control es tocado
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }

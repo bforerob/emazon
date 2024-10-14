@@ -1,5 +1,3 @@
-// src/app/services/category.service.spec.ts
-
 import { TestBed } from '@angular/core/testing';
 import { CategoryService } from './category.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
