@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <h2>{{ title }}</h2>
+  </div>
+  <div *ngFor="let field of fields">
+    <app-label-input
+      [type]="field.type"
+      [label]="field.label"
+      [placeholder]="field.placeholder"
+      formControlName="{{ field.name }}"
+    ></app-label-input>
+    <div *ngIf="form.get(field.name)?.invalid && form.get(field.name)?.touched" class="error">
+      <span *ngFor="let errorKey of getErrorKeys(field.name)">
+        {{ field.errorMessages?.[errorKey] || defaultErrorMessage(errorKey, field.label) }}
+      </span>
+    </div>
+  </div>
+
+  <app-button type="submit" [disabled]="form.invalid" [text]="'Create Category'"></app-button>
+  <app-message *ngIf="message" [type]="message.type" [text]="message.text"></app-message>
+
+</form>
