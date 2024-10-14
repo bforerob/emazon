@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormField } from 'src/app/shared/interfaces/formField.model';
-import { CategoryService } from 'src/app/shared/services/category.service';
+import { CategoryService } from '../../../../shared/services/category.service';
 
 @Component({
   selector: 'app-add-category',
