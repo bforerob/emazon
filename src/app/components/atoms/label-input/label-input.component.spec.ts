@@ -60,11 +60,11 @@ describe('LabelInputComponent', () => {
     expect(onTouchedSpy).toHaveBeenCalled();
   });
 
-  /*
+  
   it('should disable the input when setDisabledState is called with true', () => {
     component.setDisabledState(true);
     fixture.detectChanges();
     const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
     expect(inputElement.disabled).toBe(true);
-  });*/
+  });
 });

@@ -38,9 +38,10 @@ export class LabelInputComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
   
-  setDisabledState?(isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
+  
 
   handleInputChange(event: Event): void {
     const input = event.target as HTMLInputElement;
