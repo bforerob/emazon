@@ -1,6 +1,7 @@
-<!-- src/app/components/reusable-form/reusable-form.component.html -->
-
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <h2>{{ title }}</h2>
+  </div>
   <div *ngFor="let field of fields">
     <app-label-input
       [type]="field.type"
@@ -15,7 +16,7 @@
     </div>
   </div>
 
-  <app-button type="submit" [disabled]="form.invalid">Enviar</app-button>
+  <app-button type="submit" [disabled]="form.invalid" [text]="'Create Category'"></app-button>
   <app-message *ngIf="message" [type]="message.type" [text]="message.text"></app-message>
 
 </form>

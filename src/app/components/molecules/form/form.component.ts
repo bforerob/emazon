@@ -9,6 +9,7 @@ import { FormField } from 'src/app/shared/interfaces/formField.model';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
+  @Input() title: string = 'form';
   @Input() fields: FormField[] = [];
   @Input() message?: { type: 'success' | 'error'; text: string };
   @Output() submitForm = new EventEmitter<any>();
