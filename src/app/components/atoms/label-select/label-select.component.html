@@ -1,0 +1,16 @@
+<div class="form-group">
+  <label [for]="name">{{ label }}</label>
+  <select
+    [id]="name"
+    [name]="name"
+    [disabled]="disabled"
+    [value]="value"
+    (change)="onSelectionChange($event)"
+    (blur)="onTouched()"
+  >
+    <option value="" disabled>Seleccione una opción</option>
+    <option *ngFor="let option of options" [value]="option.value">
+      {{ option.display }}
+    </option>
+  </select>
+</div>

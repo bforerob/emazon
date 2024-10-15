@@ -11,6 +11,7 @@ import { LabelInputComponent } from './components/atoms/label-input/label-input.
 import { FormComponent } from './components/molecules/form/form.component';
 import { AddCategoryComponent } from './modules/category/pages/add-category/add-category.component';
 import { MessageComponent } from './components/atoms/message/message.component';
+import { LabelSelectComponent } from './components/atoms/label-select/label-select.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MessageComponent } from './components/atoms/message/message.component';
     FormComponent,
     AddCategoryComponent,
     MessageComponent,
+    LabelSelectComponent,
   ],
   imports: [
     BrowserModule,
